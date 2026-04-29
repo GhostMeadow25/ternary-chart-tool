@@ -759,7 +759,7 @@ for i, (set_name, sub_dict) in enumerate(sets.items()):
     
     for j in range(len(res) - 3):
         axs.plot(res[j][0], res[j][1], marker='', linestyle='-', 
-             linewidth=l_widths[i], color=l_colors[j])
+             linewidth=l_widths[i], color=l_colors[i])
     sub_dict_full = {}
     for key, points in sub_dict.items():
         points = TtB(points, rot_angle = rot_angles[i], axs_shift = axs_shifts[i], 
