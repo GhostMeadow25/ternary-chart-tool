@@ -37,6 +37,8 @@ A matplotlib figure window will open displaying your ternary chart(s), or it wil
 | `Data_Example.csv` | Example input dataset for testing and demonstration |
 | `requirements.txt` | Python package dependencies |
 | `TUTORIAL.md` | Step-by-step walkthrough for common use cases |
+| `ternary_tutorial_single_chart.csv` | Sample dataset for Tutorial 2 (single chart) |
+| `ternary_tutorial_two_charts.csv` | Sample dataset for Tutorial 3 (two charts) |
 | `LICENSE` | MIT License |
 
 ## Input
