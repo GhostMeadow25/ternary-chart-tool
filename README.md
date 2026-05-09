@@ -467,7 +467,7 @@ Additional_Label("Region A", (50, 50), apply_chart=0, weight='bold')
 
 ### `Fill_Region`
 
-Fills a polygonal region with a color. Coordinates must be Cartesian `(x, y)` pairs — convert ternary coordinates first using `TtB()` if needed.
+Fills a polygonal region with a color. Coordinates must be Cartesian `(x, y)` pairs. Convert ternary coordinates first using `TtB()` if needed.
 
 ```python
 Fill_Region(ax, coords, facecolor='blue', edgecolor='black', alpha=0.3, linewidth=1)
