@@ -396,6 +396,108 @@ corner_labels = ['no', 'no', 'yes', 'no']
 
 ---
 
+## Adding Custom Annotations
+
+Three functions are available for adding custom overlays to your charts. Call them at the bottom of the script, after the main loop, using the same pattern as the examples in Tutorial 1.
+
+---
+
+### `Draw_Segment`
+
+Draws a line segment between two points. Coordinates can be ternary `[L, R, T]` or Cartesian `[x, y]` — the function detects which automatically based on length.
+
+```python
+Draw_Segment(ax, coord1, coord2, apply_chart=None, linewidth=2,
+             color='black', linestyle='-', label=None)
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `ax` | The axes object (use `axs`) |
+| `coord1` | Start point: `[L, R, T]` ternary or `[x, y]` Cartesian |
+| `coord2` | End point in the same format as `coord1` |
+| `apply_chart` | Chart index (0-based) whose transformations to use. If `None`, no transformations are applied |
+| `linewidth` | Line width in points (default: 2) |
+| `color` | Line color — any matplotlib color string (default: `'black'`) |
+| `linestyle` | `'-'` solid, `'--'` dashed, `':'` dotted, `'-.'` dash-dot (default: `'-'`) |
+| `label` | Optional label string for use in a legend |
+
+**Examples:**
+```python
+# Line between two ternary points on chart 0
+Draw_Segment(axs, [30, 50, 20], [50, 30, 20], apply_chart=0, color='red')
+
+# Dashed line using Cartesian coordinates
+Draw_Segment(axs, [25.5, 15.0], [45.2, 30.8], apply_chart=0, linestyle='--', color='blue')
+```
+
+---
+
+### `Additional_Label`
+
+Places a text label anywhere on the plot. Coordinates can be ternary `[L, R, T]` or Cartesian `(x, y)`.
+
+```python
+Additional_Label(text, coords, apply_chart=None, rotation=0,
+                 fontsize=10, color='black', ha='center', va='center', **kwargs)
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `text` | The string to display |
+| `coords` | Position: `[L, R, T]` ternary or `(x, y)` Cartesian |
+| `apply_chart` | Chart index (0-based) whose transformations to use |
+| `rotation` | Rotation of the text itself in degrees (default: 0) |
+| `fontsize` | Font size (default: 10) |
+| `color` | Text color (default: `'black'`) |
+| `ha` | Horizontal alignment: `'left'`, `'center'`, or `'right'` (default: `'center'`) |
+| `va` | Vertical alignment: `'top'`, `'center'`, or `'bottom'` (default: `'center'`) |
+| `**kwargs` | Any additional `plt.text()` keyword arguments (e.g., `weight`, `bbox`) |
+
+**Examples:**
+```python
+# Label at a ternary position on chart 0
+Additional_Label("Feldspar", [60, 20, 20], apply_chart=0, fontsize=9, color='darkred')
+
+# Label at a Cartesian position with bold text
+Additional_Label("Region A", (50, 50), apply_chart=0, weight='bold')
+```
+
+---
+
+### `Fill_Region`
+
+Fills a polygonal region with a color. Coordinates must be Cartesian `(x, y)` pairs — convert ternary coordinates first using `TtB()` if needed.
+
+```python
+Fill_Region(ax, coords, facecolor='blue', edgecolor='black', alpha=0.3, linewidth=1)
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `ax` | The axes object (use `axs`) |
+| `coords` | List of `(x, y)` pairs defining the polygon vertices |
+| `facecolor` | Fill color (default: `'blue'`) |
+| `edgecolor` | Border color (default: `'black'`) |
+| `alpha` | Opacity from 0 (transparent) to 1 (opaque) (default: 0.3) |
+| `linewidth` | Border line width in points (default: 1) |
+
+**Example:**
+```python
+# Convert ternary corners to Cartesian, then fill
+p1 = TtB([[40, 40, 20]], axs_shift=axs_shifts[0], rot_angle=rot_angles[0],
+          rot_point=rot_point, m_factor=m_factors[0])
+p2 = TtB([[60, 20, 20]], axs_shift=axs_shifts[0], rot_angle=rot_angles[0],
+          rot_point=rot_point, m_factor=m_factors[0])
+p3 = TtB([[20, 60, 20]], axs_shift=axs_shifts[0], rot_angle=rot_angles[0],
+          rot_point=rot_point, m_factor=m_factors[0])
+
+coords = [(p1[0][0], p1[1][0]), (p2[0][0], p2[1][0]), (p3[0][0], p3[1][0])]
+Fill_Region(axs, coords, facecolor='yellow', edgecolor='black', alpha=0.4)
+```
+
+---
+
 ## Output
 
 The script produces matplotlib figure(s). To save to a file, add the following line before `plt.show()` in the script:
