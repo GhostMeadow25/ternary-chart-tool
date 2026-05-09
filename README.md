@@ -16,7 +16,10 @@ A Python tool for creating flexible ternary diagrams. Ter_Charts-py supports mul
 ## Requirements
 
 - Python 3.13.2 or newer
-- See [requirements.txt](requirements.txt) for required packages
+- numpy>=1.24.0
+- matplotlib>=3.7.0
+- pandas>=2.0.0
+- scipy>=1.10.0
 
 ## Quick Start
 
